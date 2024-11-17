@@ -29,7 +29,7 @@ jobs:
 
       # 7. Run FastAPI tests
       - name: Run FastAPI tests
-        run: docker exec fastapi-container pytest tests/
+        run: docker exec fastapi-container pytest test/
 
       # 8. Tear down Node.js and FastAPI containers
       - name: Stop and remove Node.js and FastAPI containers
