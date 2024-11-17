@@ -15,6 +15,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+        # 8. Tear down Node.js and FastAPI containers
+      - name: Stop and remove Node.js and FastAPI containers
+        run: |
+          docker rm fastapi-container
+
       # 5. Build and run FastAPI service
       - name: Build FastAPI service
         run: docker build -t fastapi-service ./model
