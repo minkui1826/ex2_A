@@ -37,7 +37,9 @@ jobs:
 
       #  Run FastAPI tests
       - name: Run FastAPI tests
-        run: docker exec fastapi-container pytest test/
+        run: |
+          docker exec nodejs-container ls /usr/src/app/
+          docker exec fastapi-container pytest test/
 
       #  Run Nodejs tests
       - name: Run NodeJS tests
