@@ -45,7 +45,7 @@ jobs:
       - name: Run NodeJS tests
         run: |
           docker exec nodejs-container ls /app/
-          docker exec nodejs-container npx jest /app/test/*.test.js
+          docker exec nodejs-container npx jest test/
 
       - name: Print success message
         if: success()
