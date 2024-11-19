@@ -47,7 +47,7 @@ jobs:
 
       #  Run Nodejs tests
       - name: Run NodeJS tests
-        run: docker exec nodejs-container npm test test/
+        run: docker exec nodejs-container npm test /usr/src/app/test/
 
       - name: Print success message
         if: success()
