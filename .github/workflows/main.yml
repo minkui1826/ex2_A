@@ -9,6 +9,11 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    env:
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_NAME: ${{ secrets.DB_NAME }}
 
     steps:
       # 1. 코드 체크아웃
@@ -29,7 +34,7 @@ jobs:
 
       - name: Run nodejs service
         run: |
-          docker run -d --name nodejs-container -p 3000:3000 -e DB_USER=${{ secrets.DB_USER }} -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} -e DB_HOST=${{ secrets.DB_HOST }} -e DB_NAME=${{ secrets.DB_NAME }} -v ${{ github.workspace }}/test/nodejs_test:/app/test nodejs-service
+          docker run -d --name nodejs-container -p 3000:3000 -e DB_USER=$DB_USER -e DB_PASSWORD=$DB_PASSWORD -e DB_HOST=$DB_HOST -e DB_NAME=$DB_NAME -v ${{ github.workspace }}/test/nodejs_test:/app/test nodejs-service
 
       #  Wait for FastAPI service to be ready (Optional)
       - name: Wait for FastAPI service to be ready
