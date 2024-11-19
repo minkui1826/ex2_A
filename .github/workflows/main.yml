@@ -23,6 +23,13 @@ jobs:
       - name: Check environment variables
         run: echo $DB_USER $DB_PASSWORD $DB_HOST $DB_NAME
 
+      - name: Create .env file
+        run: |
+          echo "DB_USER=${{ secrets.DB_USER }}" >> .env
+          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+          echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
+          echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
+
       #  Build and run FastAPI service
       - name: Build FastAPI service
         run: docker build -t fastapi-service ./model
@@ -37,7 +44,7 @@ jobs:
 
       - name: Run nodejs service
         run: |
-          docker run -d --name nodejs-container -p 3000:3000 -e DB_USER=$DB_USER -e DB_PASSWORD=$DB_PASSWORD -e DB_HOST=$DB_HOST -e DB_NAME=$DB_NAME -v ${{ github.workspace }}/test/nodejs_test:/app/test nodejs-service
+          docker run -d --name nodejs-container -p 3000:3000 --env-file .env -v ${{ github.workspace }}/test/nodejs_test:/app/test nodejs-service
 
       #  Wait for FastAPI service to be ready (Optional)
       - name: Wait for FastAPI service to be ready
